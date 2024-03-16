@@ -10,7 +10,7 @@ class Usuario{
         $id,
         $nome,
         $login,
-        $senha,
+        $senha
     ){
         $this->$id = $$id;
         $this->nome = $nome;
