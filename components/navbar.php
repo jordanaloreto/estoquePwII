@@ -10,7 +10,7 @@
           <a class="nav-link" href="?pg=categorias">Categorias</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="?pg=login">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
