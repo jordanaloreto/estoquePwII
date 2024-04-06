@@ -4,11 +4,8 @@ class Categoria{
     private $id;
     private $nome;
 
-    function __construct(
-        $id,
-        $nome,
-    ){
-        $this->$id = $$id;
+    function __construct($id, $nome){
+        $this->id = $id;
         $this->nome = $nome;
     }
 
@@ -24,5 +21,4 @@ class Categoria{
     function setNome($nome){
         $this->nome = $nome;
     }
-
 }
