@@ -16,7 +16,7 @@ class Conexao{
     public static function getInstance(){
         if(self::$conexao == null){
             try{
-                self::$conexao = new PDO("mysql:host=".self::$host.";port=".self::$porta.";dbname".self::$banco,self::$usuario,self::$senha);
+                self::$conexao = new PDO("mysql:host=".self::$host.";port=".self::$porta.";dbname=".self::$banco,self::$usuario,self::$senha);
             }catch (PDOException $e){
                 die("Erro ao conectar ao banco de dados: ". $e->getMessage());
             }
