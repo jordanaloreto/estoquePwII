@@ -22,12 +22,15 @@ if (isset($_POST["nome"])) {
         $_POST["preco"]
     );
 
+
     if (isset($_GET["id"])) {
         $produto->setId($_GET["id"]);
         $produtoController->update($produto);
     } else {
+
         $produtoController->save($produto);
     }
+
 
     header("Location: ?pg=produtos");
 
@@ -53,7 +56,7 @@ if (isset($_POST["nome"])) {
         <div class="form-group">
             <label for="categoria">Categoria</label>
 
-            <select class="form-control" id="categoria" name="categoria">
+            <select class="form-control" id="categoria" name="categoria_id">
 
                 <?php
 

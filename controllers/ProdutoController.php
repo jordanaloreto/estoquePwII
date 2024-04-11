@@ -11,7 +11,7 @@ class ProdutoController {
             $produtos = array();
 
             while($produto = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $categoria = new Categoria($produto["categoria_id"], $produto["categoria_nome"]);
+                $categoria = new Categoria($produto["categoria"], $produto["nome"]);
                 $produtos[] = new Produto($produto["id"], $produto["nome"], $produto["descricao"], $categoria, $produto["preco"]);
             }
             
@@ -30,13 +30,15 @@ class ProdutoController {
             $categoria = $produto->getCategoria()->getId();
             $preco = $produto->getPreco();
             
-            $stmt = $conexao->prepare("INSERT INTO produto (nome, descricao, categoria_id, preco) VALUES (:nome, :descricao, :categoria_id, :preco)");
+            $stmt = $conexao->prepare("INSERT INTO produto (nome, descricao, categoria, preco) VALUES (:nome, :descricao, :categoria, :preco)");
             $stmt->bindParam(":nome", $nome);
             $stmt->bindParam(":descricao", $descricao);
-            $stmt->bindParam(":categoria_id", $categoria);
+            $stmt->bindParam(":categoria", $categoria);
             $stmt->bindParam(":preco", $preco);
 
             $stmt->execute();
+
+            // var_dump($stmt);
 
             $lastInsertedId = $conexao->lastInsertId();
             $produto = $this->findById($lastInsertedId);
@@ -57,10 +59,10 @@ class ProdutoController {
             $categoria = $produto->getCategoria()->getId();
             $preco = $produto->getPreco();
             
-            $stmt = $conexao->prepare("UPDATE produto SET nome = :nome, descricao = :descricao, categoria_id = :categoria_id, preco = :preco WHERE id = :id");
+            $stmt = $conexao->prepare("UPDATE produto SET nome = :nome, descricao = :descricao, categoria = :categoria, preco = :preco WHERE id = :id");
             $stmt->bindParam(":nome", $nome);
             $stmt->bindParam(":descricao", $descricao);
-            $stmt->bindParam(":categoria_id", $categoria);
+            $stmt->bindParam(":categoria", $categoria);
             $stmt->bindParam(":preco", $preco);
             $stmt->bindParam(":id", $id);
 
@@ -97,15 +99,15 @@ class ProdutoController {
     public function findById($id) {
         try {
             $conexao = Conexao::getInstance();
-
-            $stmt = $conexao->prepare("SELECT * FROM produto WHERE id = :id");
+    
+            $stmt = $conexao->prepare("SELECT p.*, c.nome as categoria_nome FROM produto p INNER JOIN categoria c ON p.categoria = c.id WHERE p.id = :id");
             $stmt->bindParam(":id", $id);
             $stmt->execute();
-
+    
             $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    
             if ($resultado) {
-                $categoria = new Categoria($resultado["categoria_id"], $resultado["categoria_nome"]);
+                $categoria = new Categoria($resultado["categoria"], $resultado["categoria_nome"]);
                 return new Produto($resultado["id"], $resultado["nome"], $resultado["descricao"], $categoria, $resultado["preco"]);
             } else {
                 return null;
@@ -115,6 +117,7 @@ class ProdutoController {
             return null;
         }
     }
+    
 }
 
 ?>
