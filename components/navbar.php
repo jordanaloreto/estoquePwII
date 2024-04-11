@@ -13,7 +13,7 @@
           <a class="nav-link" href="?pg=login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="?pg=produtos">Produtos</a>
         </li>
       </ul>
       <form class="d-flex" role="search">

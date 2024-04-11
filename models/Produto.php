@@ -14,7 +14,7 @@ class Produto{
         $nome,
         $descricao,
         Categoria $categoria,
-        $preco,
+        $preco
     ){
         $this->id = $id;
         $this->nome = $nome;
