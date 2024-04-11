@@ -1,6 +1,6 @@
 <?php
-require_once "../contollers/ProdutoController.php"; 
-require_once "../controllers/CategoriaController.php"; 
+require_once "controllers/ProdutoController.php"; 
+require_once "controllers/CategoriaController.php"; 
 
 // Inicia a sessão
 if (isset($_GET["id"])) {
@@ -52,10 +52,24 @@ if (isset($_POST["nome"])) {
 
         <div class="form-group">
             <label for="categoria">Categoria</label>
-            <select class="form-control" id="categoria" name="categoria_id">
-                <?php foreach ($categorias as $categoria) { ?>
-                    <option value="<?php echo $categoria->getId(); ?>" <?php echo (isset($produto) && $produto->getCategoria()->getId() == $categoria->getId()) ? 'selected' : ''; ?>><?php echo $categoria->getNome(); ?></option>
-                <?php } ?>
+
+            <select class="form-control" id="categoria" name="categoria">
+
+                <?php
+
+                // Percorre o array de categorias
+                foreach ($categorias as $categoria):
+
+                    // Define a opção como selecionada se for a categoria do produto
+                    $selected = (isset($produto) && $produto->getCategoria()->getId() == $categoria->getId()) ? "selected" : "";
+
+                    // Exibe a opção do select
+                    echo "<option value=\"{$categoria->getId()}\" {$selected}>{$categoria->getNome()}</option>";
+
+                endforeach;
+
+                ?>
+
             </select>
         </div>
 
