@@ -3,7 +3,10 @@ require_once "controllers/ProdutoController.php";
 require_once "controllers/CategoriaController.php"; 
 
 // Inicia a sessão
+echo" kkkkk";
 if (isset($_GET["id"])) {
+    var_dump($produto);
+
     $produtoController = new ProdutoController();
     $produto = $produtoController->findById($_GET["id"]);
 }
@@ -26,12 +29,18 @@ if (isset($_POST["nome"])) {
     if (isset($_GET["id"])) {
         $produto->setId($_GET["id"]);
         $produtoController->update($produto);
+        var_dump($produto);
     } else {
+        var_dump($produto);
 
         $produtoController->save($produto);
     }
 
+if(isset($_POST["Salvar"])){
+    var_dump($produto);
 
+        $produtoController->save($produto);
+}
     header("Location: ?pg=produtos");
 
     exit();
