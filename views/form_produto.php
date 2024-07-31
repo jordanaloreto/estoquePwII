@@ -1,12 +1,9 @@
 <?php
-require_once "controllers/ProdutoController.php"; 
-require_once "controllers/CategoriaController.php"; 
+require_once "controllers/ProdutoController.php";
+require_once "controllers/CategoriaController.php";
 
 // Inicia a sessão
-echo" kkkkk";
 if (isset($_GET["id"])) {
-    var_dump($produto);
-
     $produtoController = new ProdutoController();
     $produto = $produtoController->findById($_GET["id"]);
 }
@@ -21,31 +18,20 @@ if (isset($_POST["nome"])) {
         null,
         $_POST["nome"],
         $_POST["descricao"],
-        $categoriaController->findById($_POST["categoria_id"]),
+        $categoriaController->findById($_POST["categoria"]),
         $_POST["preco"]
     );
-
 
     if (isset($_GET["id"])) {
         $produto->setId($_GET["id"]);
         $produtoController->update($produto);
-        var_dump($produto);
     } else {
-        var_dump($produto);
-
         $produtoController->save($produto);
     }
 
-if(isset($_POST["Salvar"])){
-    var_dump($produto);
-
-        $produtoController->save($produto);
-}
     header("Location: ?pg=produtos");
-
     exit();
 }
-
 ?>
 
 <div class="container mt-2">
@@ -64,24 +50,13 @@ if(isset($_POST["Salvar"])){
 
         <div class="form-group">
             <label for="categoria">Categoria</label>
-
-            <select class="form-control" id="categoria" name="categoria_id">
-
+            <select class="form-control" id="categoria" name="categoria">
                 <?php
-
-                // Percorre o array de categorias
                 foreach ($categorias as $categoria):
-
-                    // Define a opção como selecionada se for a categoria do produto
                     $selected = (isset($produto) && $produto->getCategoria()->getId() == $categoria->getId()) ? "selected" : "";
-
-                    // Exibe a opção do select
                     echo "<option value=\"{$categoria->getId()}\" {$selected}>{$categoria->getNome()}</option>";
-
                 endforeach;
-
                 ?>
-
             </select>
         </div>
 
