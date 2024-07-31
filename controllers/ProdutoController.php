@@ -30,10 +30,10 @@ class ProdutoController {
             $categoria = $produto->getCategoria()->getId();
             $preco = $produto->getPreco();
             
-            $stmt = $conexao->prepare("INSERT INTO produto (nome, descricao, categoria, preco) VALUES (:nome, :descricao, :categoria, :preco)");
+            $stmt = $conexao->prepare("INSERT INTO produto (nome, descricao, preco) VALUES (:nome, :descricao, :preco)");
             $stmt->bindParam(":nome", $nome);
             $stmt->bindParam(":descricao", $descricao);
-            $stmt->bindParam(":categoria", $categoria);
+            // $stmt->bindParam(":categoria", $categoria);
             $stmt->bindParam(":preco", $preco);
 
             $stmt->execute();

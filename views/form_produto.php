@@ -50,7 +50,7 @@ if(isset($_POST["Salvar"])){
 
 <div class="container mt-2">
     <h1 class="text-center mb-0">Cadastro de Produto</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
 
         <div class="form-group">
             <label for="nome">Nome</label>
