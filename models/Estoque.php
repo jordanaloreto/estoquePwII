@@ -10,7 +10,7 @@ class Estoque{
     function __construct(
         $id,
         Produto $produto,
-        $quantidade,
+        $quantidade
     ){
         $this->id = $id;
         $this->produto = $produto;

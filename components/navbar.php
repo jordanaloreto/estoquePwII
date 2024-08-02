@@ -15,6 +15,9 @@
         <li class="nav-item">
           <a class="nav-link" href="?pg=produtos">Produtos</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="?pg=estoque">Estoque</a>
+        </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
