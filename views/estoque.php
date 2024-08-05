@@ -43,19 +43,20 @@ if (isset($_SESSION['mensagem'])) {
                 </thead>
                 <tbody>
                     <?php foreach ($estoques as $e) : ?>
-                        <tr>
+                        <tr id="row-<?php echo htmlspecialchars($e->getId()); ?>">
                             <td><?php echo htmlspecialchars($e->getId()); ?></td>
                             <td><?php echo htmlspecialchars($e->getProduto()->getNome()); ?></td>
-                            <td><?php echo htmlspecialchars($e->getQuantidade()); ?></td>
+                            <td class="quantidade"><?php echo htmlspecialchars($e->getQuantidade()); ?></td>
                             <td>
-                                <a class="btn btn-primary" href="?pg=add_quantidade&id=<?php echo $e->getId(); ?>">
+                                <a class="btn btn-primary" href="?pg=form_estoque&id=<?php echo $e->getId(); ?>&action=add">
                                     <i class="fas fa-plus"></i></a>
-                                <a class="btn btn-danger" href="?pg=remove_quantidade&id=<?php echo $e->getId(); ?>">
+                                <a class="btn btn-danger" href="?pg=form_estoque&id=<?php echo $e->getId(); ?>&action=remove">
                                     <i class="fas fa-minus"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
+
             </table>
         </div>
     </div>
