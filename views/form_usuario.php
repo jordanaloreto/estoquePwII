@@ -10,7 +10,8 @@ session_start();
 
 if (isset($_POST["login"]) && isset($_POST["senha"])) {
     $usuarioController = new UsuarioController();
-    $usuarioController->login($_POST["login"], $_POST["senha"]);
+    $usuario = new Usuario(null,$_POST["nome"],$_POST["login"],$_POST["senha"]);
+    $usuarioController->save($usuario);
 }
 ?>
 
@@ -24,12 +25,23 @@ if (isset($_POST["login"]) && isset($_POST["senha"])) {
 </head>
 
 <body>
-    <div class="container mt-5">
+<div class="container mt-5">
         <form method="POST">
             <div class="mb-3 row">
                 <label for="exampleFormControlInput1" class="col-sm-2 col-form-label">Email address</label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" id="exampleFormControlInput1" name="login" placeholder="name@example.com">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="username" class="col-sm-2 col-form-label">Username</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="addon-wrapping">@</span>
+                        </div>
+                        <input type="text" class="form-control" id="username" name="nome" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                    </div>
                 </div>
             </div>
             <div class="mb-3 row">
@@ -40,13 +52,11 @@ if (isset($_POST["login"]) && isset($_POST["senha"])) {
             </div>
             <div class="mb-3 row">
                 <div class="col-sm-10 offset-sm-2">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                    <a href="?pg=form_usuario" class="btn btn-secondary">Cadastrar</a>
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
                 </div>
             </div>
         </form>
     </div>
-
     <?php
 
     if(isset($_SESSION["mensagem"])){
