@@ -1,4 +1,12 @@
 <?php
+
+session_start(); // Inicia a sessão
+
+// Verifica se o usuário está logado
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: ?pg=login"); // Redireciona para a página de login se não estiver logado
+    exit(); // Interrompe a execução do script
+}
 // include_once("restrict.php");
 require_once "controllers/CategoriaController.php";
 // Inicia a sessão

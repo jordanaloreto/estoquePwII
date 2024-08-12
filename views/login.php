@@ -42,6 +42,7 @@ if (isset($_POST["login"]) && isset($_POST["senha"])) {
                 <div class="col-sm-10 offset-sm-2">
                     <button type="submit" class="btn btn-primary">Login</button>
                     <a href="?pg=form_usuario" class="btn btn-secondary">Cadastrar</a>
+                    <a href="?pg=logout" class="btn btn-danger">Logout</a>
                 </div>
             </div>
         </form>
