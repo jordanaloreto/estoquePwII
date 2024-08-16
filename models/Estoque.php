@@ -5,18 +5,21 @@ class Estoque{
     private $id;
     private $produto;
     private $quantidade;
+    private $created_at;
 
 
     function __construct(
         $id,
         Produto $produto,
-        $quantidade
+        $quantidade,
+        $created_at = null // Valor padrão é null
     ){
         $this->id = $id;
         $this->produto = $produto;
         $this->quantidade = $quantidade;
+        $this->created_at = $created_at ?? date('Y-m-d H:i:s'); // Se não for passado, define como a data e hora atual
     }
-
+    
     function getId(){
         return $this->id;
     }
@@ -34,6 +37,12 @@ class Estoque{
     }
     function setQuantidade($quantidade){
         $this->quantidade = $quantidade;
+    }
+    function getCreatedAt(){
+        return $this->created_at;
+    }
+    function setCreatedAt($created_at){
+        $this->created_at = $created_at;
     }
 
 }

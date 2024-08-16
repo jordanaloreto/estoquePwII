@@ -14,7 +14,7 @@ class EstoqueController {
 
             while($estoque = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $produto = $this->findProdutoById($estoque["produto"]);
-                $estoques[] = new Estoque($estoque["id"], $produto, $estoque["quantidade"]);
+                $estoques[] = new Estoque($estoque["id"], $produto, $estoque["quantidade"],$estoque["created_at"]);
             }
 
             return $estoques;
@@ -56,7 +56,7 @@ class EstoqueController {
 
             if ($resultado) {
                 $produto = $this->findProdutoById($resultado["produto"]);
-                return new Estoque($resultado["id"], $produto, $resultado["quantidade"]);
+                return new Estoque($resultado["id"], $produto, $resultado["quantidade"],$resultado["created_at"]);
             } else {
                 return null;
             }
