@@ -1,7 +1,9 @@
 <?php
 require_once "models/Estoque.php";
 require_once "models/Produto.php";
-require_once "models/Conexao.php";  // Certifique-se de ter uma classe Conexao para lidar com a conexão com o banco de dados
+require_once "models/Conexao.php";
+require_once "controllers/HistoricoController.php";
+require_once "controllers/UsuarioController.php";  // Certifique-se de ter uma classe Conexao para lidar com a conexão com o banco de dados
 
 class EstoqueController {
 
@@ -29,20 +31,31 @@ class EstoqueController {
             $conexao = Conexao::getInstance();
             $produto = $estoque->getProduto()->getId();
             $quantidade = $estoque->getQuantidade();
-
+    
             $stmt = $conexao->prepare("INSERT INTO estoque (produto, quantidade) VALUES (:produto, :quantidade)");
             $stmt->bindParam(":produto", $produto);
             $stmt->bindParam(":quantidade", $quantidade);
-
+    
             $stmt->execute();
-
+    
             $lastInsertedId = $conexao->lastInsertId();
+    
+            $historicoController = new HistoricoController();
+            $estoque = $this->findById($lastInsertedId); 
+    
+            $usuarioController = new UsuarioController();
+            $usuario = $usuarioController->findById($_SESSION['id_usuario']);
+    
+            $historico = new Historico(null, $estoque, "Adicionar", $quantidade, null, $usuario);
+            $historicoController->save($historico);
+            
             return $this->findById($lastInsertedId);
         } catch (PDOException $e) {
             echo "Erro ao salvar o estoque: " . $e->getMessage();
             return null;
         }
     }
+    
 
     public function findById($id) {
         try {
@@ -95,6 +108,16 @@ class EstoqueController {
             $stmt->bindParam(":quantidade", $quantidade);
             $stmt->bindParam(":id", $id);
             $stmt->execute();
+
+            $historicoController = new HistoricoController();
+            $estoque = $this->findById($id);
+
+            $usuarioController = new UsuarioController();
+            $usuario = $usuarioController->findById($_SESSION['id_usuario']);
+
+            $historico = new Historico(null, $estoque, "Adicionar", $quantidade, null, $usuario);
+            $historicoController->save($historico);
+
         } catch (PDOException $e) {
             echo "Erro ao adicionar quantidade: " . $e->getMessage();
         }
@@ -107,6 +130,16 @@ class EstoqueController {
             $stmt->bindParam(":quantidade", $quantidade);
             $stmt->bindParam(":id", $id);
             $stmt->execute();
+
+            $historicoController = new HistoricoController();
+            $estoque = $this->findById($id);
+
+            $usuarioController = new UsuarioController();
+            $usuario = $usuarioController->findById($_SESSION['id_usuario']);
+
+            $historico = new Historico(null, $estoque, "Remover", $quantidade, null, $usuario);
+            $historicoController->save($historico);
+
         } catch (PDOException $e) {
             echo "Erro ao remover quantidade: " . $e->getMessage();
         }

@@ -19,7 +19,7 @@
           <a class="nav-link" href="?pg=estoque">Estoque</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Histórico</a>
+          <a class="nav-link" href="?pg=list_historico">Histórico</a>
         </li>
       </ul>
       <form class="d-flex" role="search">
